@@ -10,12 +10,15 @@ package serve;
  * @author Pradyumna
  */
 public class Resource {
+    public final Httpd config;
+    private final String uri;
     public Resource(String uri, Httpd config){
-        
+        this.uri=uri;
+        this.config=config;
     }
     
     public String absolutePath(){
-        return null;
+        return config.DocumentRoot+uri;
     }
     
     public boolean isScript(){

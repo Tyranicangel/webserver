@@ -37,19 +37,10 @@ public class Worker extends Thread{
     protected void processRequest() throws IOException{
         BufferedReader inpt = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
         Request req = new Request(inpt);
-        this.sendResponse();
+        Resource res = new Resource(req.uri, this.config);
+        Responder responder =new Responder();
+        Response resp=responder.getReponse(req, res);
+        resp.send(client.getOutputStream());
         client.close();
-    }
-    
-    protected void sendResponse() throws IOException{
-        System.out.println("Sending Response");
-        System.out.println(this.client);
-        try (PrintWriter out = new PrintWriter(this.client.getOutputStream(),true)) {
-            out.println("HTTP/1.1 200 OK");
-            out.println("Content-Type: text/html");
-            out.println("\r\n");
-            out.println("<p> Hello world </p>");
-            out.flush();
-        }
     }
 }
