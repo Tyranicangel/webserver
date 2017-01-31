@@ -17,4 +17,12 @@ class Dictonary {
     Dictonary() {
         this.dict = new HashMap<>();
     }
+    
+    public void add(String key, String value){
+        this.dict.put(key, value);
+    }
+    
+    public String get(String key){
+        return this.dict.get(key);
+    }
 }

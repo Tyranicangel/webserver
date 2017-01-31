@@ -22,8 +22,11 @@ public class Server {
     Dictionary accessFiles;
     
     public Server() throws FileNotFoundException, IOException{
-        config=new Httpd("httpd.conf");
+        config = new Httpd("httpd.conf");
         config.load();
+        mimeTypes = new MimeType("mime.types");
+        mimeTypes.load();
+        
     }
     
     public void start() throws FileNotFoundException, IOException{

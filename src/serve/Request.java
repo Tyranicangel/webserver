@@ -5,7 +5,8 @@
  */
 package serve;
 
-import java.util.stream.Stream;
+import java.io.*;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -18,11 +19,22 @@ public class Request {
     String httpVersion;
     Dictonary headers;
     
-    public Request(String test){
-        
-    }
     
-    public Request(Stream client){
+    public Request(BufferedReader client) throws IOException{
+        StringTokenizer tokens = new StringTokenizer(client.readLine());
+        //@todo:Raise Bad request for each here
+        this.verb=tokens.nextToken();
+        this.uri=tokens.nextToken();
+        this.httpVersion=tokens.nextToken();
+        
+        //@todo: Raise bad request here
+        while(true){
+            String line=client.readLine();
+            if(line.isEmpty()) break;
+            String[] dat = line.split(":");
+            headers.add(dat[0], dat[1].trim());
+        }
+
         
     }
     

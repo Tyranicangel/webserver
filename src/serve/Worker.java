@@ -5,10 +5,7 @@
  */
 package serve;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,28 +28,22 @@ public class Worker extends Thread{
     @Override
     public void run(){
         try {
-            readRequest();
+            processRequest();
         } catch (IOException ex) {
             Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    protected void readRequest() throws IOException{
-        BufferedReader inpt;
-        inpt = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
-        String data;
-        while((data=inpt.readLine())!=null){
-            System.out.println(data);
-            if(data.isEmpty()){
-                break;
-            }
-        }
+    protected void processRequest() throws IOException{
+        BufferedReader inpt = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
+        Request req = new Request(inpt);
         this.sendResponse();
         client.close();
     }
     
     protected void sendResponse() throws IOException{
         System.out.println("Sending Response");
+        System.out.println(this.client);
         try (PrintWriter out = new PrintWriter(this.client.getOutputStream(),true)) {
             out.println("HTTP/1.1 200 OK");
             out.println("Content-Type: text/html");
