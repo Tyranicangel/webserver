@@ -15,6 +15,7 @@ public class Resource {
     public Resource(String uri, Httpd config){
         this.uri=uri;
         this.config=config;
+        
     }
     
     public String absolutePath(){

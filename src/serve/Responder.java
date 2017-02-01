@@ -5,12 +5,14 @@
  */
 package serve;
 
+import java.io.IOException;
+
 /**
  *
  * @author Pradyumna
  */
 public class Responder {
-    public Response getReponse(Request req, Resource res){
+    public Response getReponse(Request req, Resource res) throws IOException{
         return new Response(res);
     }
 }
