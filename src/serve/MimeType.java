@@ -20,18 +20,14 @@ public class MimeType extends Config{
         this.types = new Dictonary();
     }
     
-    @Override
-    public void load() throws FileNotFoundException, IOException{
-        super.load();
-        for (String string : data) {
-            if(!string.startsWith("#")){
-                String[] temp = string.split("\t");
-                String[] temp2 = temp[temp.length-1].split(" ");
-                for (String string1 : temp2) {
-                    types.add(string1, temp[0]);
-                }
+    public void parse() throws FileNotFoundException, IOException{
+        this.load();
+        data.stream().filter((string) -> (!string.startsWith("#"))).map((string) -> string.split("\t")).forEachOrdered((temp) -> {
+            String[] temp2 = temp[temp.length-1].split(" ");
+            for (String string1 : temp2) {
+                types.add(string1, temp[0]);
             }
-        }
+        });
     }
     
     public String lookup(String ext) throws IOException{

@@ -23,9 +23,9 @@ public class Server {
     
     public Server() throws FileNotFoundException, IOException{
         config = new Httpd("httpd.conf");
-        config.load();
+        config.parse();
         mimeTypes = new MimeType("mime.types");
-        mimeTypes.load();
+        mimeTypes.parse();
         
     }
     

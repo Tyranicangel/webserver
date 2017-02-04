@@ -35,9 +35,8 @@ public class Httpd extends Config{
      * @throws FileNotFoundException
      * @throws IOException
      */
-    @Override
-    public void load() throws FileNotFoundException, IOException{
-        super.load();
+    public void parse() throws FileNotFoundException, IOException{
+        this.load();
         data.stream().filter((string) -> (!string.startsWith("#"))).map((string) -> string.split(" ", 2)).forEachOrdered((reference) -> {
             switch (reference[0]){
                 case "Listen": this.PORT=Integer.parseInt(reference[1]);break;
