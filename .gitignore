@@ -13,6 +13,7 @@ build.xml
 # IntelliJ project files
 .idea/
 .idea/*
+*.iml
 
 # Temp files
 *.swp
