@@ -8,10 +8,7 @@ package serve;
 import java.io.*;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  *
@@ -23,10 +20,9 @@ public class Response {
    private final Resource resource;
    private final MimeType mimeTypes;
    
-   public Response(Resource resource) throws FileNotFoundException, IOException{
+   public Response(Resource resource, MimeType mimeTypes) throws FileNotFoundException, IOException{
        this.resource=resource;
-       this.mimeTypes=new MimeType("mime.types");
-       this.mimeTypes.load();
+       this.mimeTypes = mimeTypes;
    }
    
    public String getExtension(File f){
@@ -53,6 +49,7 @@ public class Response {
                  if(file.isFile()){
                      fileList.add(file.getName());
                  }
+                 //Redirect code goes here
              }
              for (String fname : this.resource.config.DirectoryIndex) {
                  if(fileList.contains(fname)){
@@ -69,18 +66,11 @@ public class Response {
             String ext = getExtension(f);
             out.println("HTTP/1.1 "+this.resourcePhrase);
             out.println("Content-Type: "+this.mimeTypes.lookup(ext));
-            System.out.println(f.getName());
-            System.out.println(this.mimeTypes.lookup(ext));
-            out.println("Content-Length: "+f.length());
+            out.println("Content-Length: "+(f.length()+2));
             SimpleDateFormat gmtFrmt = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss 'GMT'", Locale.US);
             gmtFrmt.setTimeZone(TimeZone.getTimeZone("GMT"));
             out.println("Date: " + gmtFrmt.format(new Date()));
             out.println("\r\n");
-//            out.flush();
-//            BufferedInputStream fData=new BufferedInputStream(new FileInputStream(f));
-//            byte[] bytes=new byte[(int)f.length()];
-//            fData.read(bytes,0,bytes.length);
-//            output.write(bytes);
             Files.copy(f.toPath(), output);
             output.close();
             out.close();

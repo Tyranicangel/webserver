@@ -1,0 +1,19 @@
+Server:
+	* Add thread pool-low
+	Implement Que
+
+Request:
+	* Add post,put,delete -high
+
+Resource:
+	* isScript and isProtected - high
+
+Response:
+	* Debug GET for images and other files - medium
+	* Add request codes for other responses - medium
+	* Add functionality for CGI in request is a script - medium
+	* Redirect if uri doesnt end in / if a directory - medium
+	* Caching - low
+	* Auth - low
+	* Refactor Response
+	* Send a Directory Listing if none of defaults are found - low

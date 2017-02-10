@@ -33,7 +33,7 @@ public class Request {
             if(line.isEmpty()) break;
             String[] dat = line.split(":",2);
             this.headers.add(dat[0], dat[1]);
-        }        
+        }
     }
     
     private void parse(){

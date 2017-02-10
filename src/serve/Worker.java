@@ -39,7 +39,7 @@ public class Worker extends Thread{
         Request req = new Request(inpt);
         Resource res = new Resource(req.uri, this.config);
         Responder responder =new Responder();
-        Response resp=responder.getReponse(req, res);
+        Response resp=responder.getReponse(req, res, mimeType);
         resp.send(client.getOutputStream());
         client.close();
     }
