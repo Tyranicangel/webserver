@@ -1,0 +1,22 @@
+# Mac filesys
+.DS_Store
+
+# NetBeans project files
+build/
+build/*
+dist/
+dist/*
+nbproject/
+nbproject/*
+build.xml
+
+# IntelliJ project files
+.idea/
+.idea/*
+
+# Temp files
+*.swp
+*.tmp
+
+# Java compiled objects
+*.class
